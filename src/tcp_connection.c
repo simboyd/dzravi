@@ -28,7 +28,7 @@ int make_socket(uint16_t port)
 	name.sin_addr.s_addr = htonl(INADDR_ANY);
 
 	int b;
-	if(b = bind(sock, (struct sockaddr*)&name, sizeof(name)) < 0)
+	if((b = bind(sock, (struct sockaddr*)&name, sizeof(name))) < 0)
 	{
 		int err = WSAGetLastError();
 		lgr_log_error("Could not bind to address!", err);
@@ -66,7 +66,7 @@ int accept_connection(int sock)
 
 int receive_data(int sock, uint8_t* buffer, int buf_len)
 {
-	int res = recv(sock, buffer, buf_len, 0);
+	int res = recv(sock, (char*)buffer, buf_len, 0);
 	if(res > 0)
 	{
 		lgr_log_text("Received bytes!");
