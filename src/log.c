@@ -1,9 +1,14 @@
 #include "log.h"
 
-#define CHANGE_COLOR(x) { printf(x); fflush(stdout); }
+#define CHANGE_COLOR(x) printf(x)
 #define TEXT_RED "\033[1;31m"
 #define TEXT_BLUE "\033[1;34m"
 #define TEXT_DEFAULT "\033[0m"
+
+void lgr_init()
+{
+	setbuf(stdout, NULL);
+}
 
 void lgr_log_bytes(uint8_t* bytes, int length)
 {
