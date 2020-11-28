@@ -5,7 +5,8 @@ int make_socket(uint16_t port)
 	int sock;
 	if((sock = socket(PF_INET, SOCK_STREAM, 0)) < 0)
 	{
-		lgr_log_error("Could not open socket!", 0);
+		int err = errno;
+		lgr_log_error("Could not open socket!", err);
 		exit(EXIT_FAILURE);
 	}
 
@@ -21,7 +22,8 @@ int make_socket(uint16_t port)
 	int b;
 	if((b = bind(sock, (struct sockaddr*)&name, sizeof(name))) < 0)
 	{
-		lgr_log_error("Could not bind to address!", errno);
+		int err = errno;
+		lgr_log_error("Could not bind to address!", err);
 		close(sock);
 		exit(EXIT_FAILURE);
 	}
@@ -34,7 +36,8 @@ void start_listening(int sock)
 	int ret;
 	if((ret = listen(sock, 1024)) < 0)
 	{
-		lgr_log_error("Error while attempting to run 'listen()'!", ret);
+		int err = errno;
+		lgr_log_error("Error while attempting to run 'listen()'!", err);
 		close(sock);
 		exit(EXIT_FAILURE);
 	}
@@ -46,8 +49,9 @@ int accept_connection(int sock)
 
 	int res;
 	if((res = accept(sock, NULL, NULL)) < 0)
-	{	
-		lgr_log_error("Could not accept connection!", res);
+	{
+		int err = errno;
+		lgr_log_error("Could not accept connection!", err);
 		close(sock);
 		exit(EXIT_FAILURE);
 	}
