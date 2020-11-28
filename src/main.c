@@ -6,7 +6,7 @@ int main(int argc, char* argv[])
 {
 	if(argc != 2)
 	{
-		lgr_log_error("INVALID ARGC.", 0);
+		lgr_log_error("INVALID ARGC.", 0xDEADBEEF);
 		return -1;
 	}
 
