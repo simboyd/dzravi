@@ -28,6 +28,7 @@ int main(int argc, char* argv[])
 		}
 
 	}
-	kill_all(sockfd);
+
+	kill_all(sockfd); // unreachable code for now
 	return 0;
 }

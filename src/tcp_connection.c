@@ -2,9 +2,8 @@
 
 int make_socket(uint16_t port)
 {
-
-	int sock = socket(PF_INET, SOCK_STREAM, 0);
-	if(sock < 0)
+	int sock;
+	if((sock = socket(PF_INET, SOCK_STREAM, 0)) < 0)
 	{
 		lgr_log_error("Could not open socket!", 0);
 		exit(EXIT_FAILURE);
@@ -32,7 +31,7 @@ int make_socket(uint16_t port)
 
 void start_listening(int sock)
 {
-	int ret = 0;
+	int ret;
 	if((ret = listen(sock, 1024)) < 0)
 	{
 		lgr_log_error("Error while attempting to run 'listen()'!", ret);
@@ -44,8 +43,9 @@ void start_listening(int sock)
 int accept_connection(int sock)
 {
 	lgr_log_text("Waiting for connection...");
-	int res = accept(sock, NULL, NULL);
-	if(res < 0)
+
+	int res;
+	if((res = accept(sock, NULL, NULL)) < 0)
 	{	
 		lgr_log_error("Could not accept connection!", res);
 		close(sock);
@@ -57,8 +57,8 @@ int accept_connection(int sock)
 
 int receive_data(int sock, uint8_t* buffer, int buf_len)
 {
-	int res = recv(sock, (char*)buffer, buf_len, 0);
-	if(res > 0)
+	int res;
+	if((res = recv(sock, (char*)buffer, buf_len, 0)) > 0)
 	{
 		lgr_log_bytes(buffer, res);
 		return res;
