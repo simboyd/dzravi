@@ -16,17 +16,18 @@ int main(int argc, char* argv[])
 	
 	uint8_t buffer[BUFFER_LENGTH] = {0};
 	
-	int conn = accept_connection(sockfd);
 	while(1)
 	{
-		memset(buffer, 0x0, sizeof(int) * BUFFER_LENGTH);
-		int res = receive_data(conn, buffer, BUFFER_LENGTH);
-		if(res == 0)
-			break;
-		printf("%s (%d bytes)\n", (char*)buffer, res);
-	}
+		int conn = accept_connection(sockfd);
+		while(1)
+		{
+			memset(buffer, 0x0, sizeof(uint8_t) * BUFFER_LENGTH);
+		
+			if(receive_data(conn, buffer, BUFFER_LENGTH) == 0)
+				break;
+		}
 
-	printf("Identifier: %d\n", sockfd);
+	}
 	kill_all(sockfd);
 	return 0;
 }

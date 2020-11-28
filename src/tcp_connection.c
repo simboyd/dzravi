@@ -39,11 +39,11 @@ void start_listening(int sock)
 		close(sock);
 		exit(EXIT_FAILURE);
 	}
-	lgr_log_text("Listening for connection...");
 }
 
 int accept_connection(int sock)
 {
+	lgr_log_text("Waiting for connection...");
 	int res = accept(sock, NULL, NULL);
 	if(res < 0)
 	{	
@@ -60,8 +60,7 @@ int receive_data(int sock, uint8_t* buffer, int buf_len)
 	int res = recv(sock, (char*)buffer, buf_len, 0);
 	if(res > 0)
 	{
-		lgr_log_text("Received bytes!");
-		lgr_log_bytes(buffer, buf_len);
+		lgr_log_bytes(buffer, res);
 		return res;
 	}
 	lgr_log_text("Connection closed!");
