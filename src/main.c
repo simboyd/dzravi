@@ -1,5 +1,7 @@
 #include "tcp_connection.h"
 
+#define BUFFER_LENGTH 2048
+
 int main(int argc, char* argv[])
 {
 	if(argc != 2)
@@ -9,11 +11,21 @@ int main(int argc, char* argv[])
 	}
 
 	int sockfd = make_socket(atoi(argv[1]));
+
 	start_listening(sockfd);
-	accept_connection(sockfd);
-	uint8_t buffer[2048] = {0};
-	receive_data(sockfd, buffer, 2048);
-	printf("%s\n", (char*)buffer);
+	
+	uint8_t buffer[BUFFER_LENGTH] = {0};
+	
+	int conn = accept_connection(sockfd);
+	while(1)
+	{
+		memset(buffer, 0x0, sizeof(int) * BUFFER_LENGTH);
+		int res = receive_data(conn, buffer, BUFFER_LENGTH);
+		if(res == 0)
+			break;
+		printf("%s (%d bytes)\n", (char*)buffer, res);
+	}
+
 	printf("Identifier: %d\n", sockfd);
 	kill_all(sockfd);
 	return 0;

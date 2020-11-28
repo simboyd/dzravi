@@ -7,7 +7,7 @@ void lgr_log_bytes(uint8_t* bytes, int length)
 
 void lgr_log_error(const char* msg, int additional)
 {
-	printf("[ERROR]\t%s additional data -> %d\n", msg, additional);
+	printf("[ERROR]\t%s additional data -> %s\n", msg, strerror(additional));
 }
 
 void lgr_log_text(const char* msg)
