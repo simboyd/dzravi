@@ -1,4 +1,4 @@
-# DZRAVI v0.1
+# Dzravi v0.1
 
 Dzravi is going to be an extremely lightweight web server. 
 It's only going to be capable of serving static pages. 
