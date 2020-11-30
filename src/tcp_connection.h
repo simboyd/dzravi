@@ -1,3 +1,4 @@
+#pragma once
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -5,10 +6,13 @@
 #include <sys/types.h>
 #include <netinet/in.h>
 #include <errno.h>
+#include <sys/select.h>
+#include <pthread.h>
 #include "log.h"
+#include "queue.h"
+#include "handle_requests.h"
+
+#define THREAD_POOL_SIZE 3
 
 int make_socket(uint16_t);
-void start_listening(int);
-int accept_connection(int);
-int receive_data(int, uint8_t*, int);
-void kill_all(int);
+void handle_socket(int);
