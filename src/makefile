@@ -1,5 +1,5 @@
 libs = -pthread
-tunits = main.c tcp_connection.c log.c queue.c handle_requests.c
+tunits = main.c tcp_connection.c log.c queue.c
 dist = ../dist/
 
 debug:

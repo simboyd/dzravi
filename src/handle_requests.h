@@ -4,8 +4,9 @@
 #include <sys/socket.h>
 #include <string.h>
 #include <unistd.h>
+#include <pthread.h>
 #include "log.h"
 
 #define BUFFER_LENGTH 4096
 
-int handle_connection(int);
+void handle_connection(int, fd_set*);
