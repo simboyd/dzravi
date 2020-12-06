@@ -21,7 +21,9 @@ int make_socket(uint16_t port)
 
 
 	int option = 1;
+	struct timeval tm = { .tv_sec = SOCK_TIMEOUT, .tv_usec = 0 };
 	setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &option, sizeof(option));
+	setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &tm, sizeof(tm));
 
 	struct sockaddr_in name;
 	name.sin_family = AF_INET;
@@ -80,7 +82,7 @@ static int accept_connection(int sock)
 	if((res = accept(sock, NULL, NULL)) < 0)
 	{
 		int err = errno;
-		lgr_log_error("Could not accept connection!", err);
+		if(err != 11) lgr_log_error("Could not accept connection!", err);
 		return -1;
 	}
 	lgr_log_text("Accepted connection!");

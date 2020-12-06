@@ -11,8 +11,10 @@
 #include "handle_requests.h"
 #include "log.h"
 #include "queue.h"
+#include "status_codes.h"
 
-#define THREAD_POOL_SIZE 7
+#define THREAD_POOL_SIZE 10
+#define SOCK_TIMEOUT 5
 
 int make_socket(uint16_t);
 void handle_socket(int);
